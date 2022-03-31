@@ -54,8 +54,7 @@ app.get('/login', (req, res) => {
     state: state,
     scope: scope,
   });
-  res.redirect(`${FRONTEND_URI}/?${queryParams}`);
-  // res.redirect(`https://accounts.spotify.com/authorize?${queryParams}`);
+  res.redirect(`https://accounts.spotify.com/authorize?${queryParams}`);
 });
 
 app.get('/callback/',(req,res)=>{
@@ -88,7 +87,7 @@ app.get('/callback/',(req,res)=>{
 
           })
 
-          res.redirect(`http://localhost:3000/?${queryParams}`)
+          res.redirect(`${FRONTEND_URI}?${queryParams}`)
     
         //   axios.get('https://api.spotify.com/v1/me', {
         //     headers: {
@@ -133,13 +132,13 @@ app.get('/refresh_token', (req, res) => {
   });
     
    
-    
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, './client/build', 'index.html'));
+  });
 
 
 
-app.listen(PORT,()=>console.log("server started"))
+app.listen(PORT,()=>console.log("server started"));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, './client/build', 'index.html'));
-});
+
 
